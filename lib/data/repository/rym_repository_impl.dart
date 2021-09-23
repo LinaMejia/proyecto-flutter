@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:proyecto_flutter/domain/domain/episode_model.dart';
 import 'package:proyecto_flutter/domain/rym_repository.dart';
 
 class RYMRepositoryImpl extends RYMRepository{
@@ -15,7 +16,7 @@ class RYMRepositoryImpl extends RYMRepository{
   }
 
   @override
-  Future<Either<String, String>> getEpisodeList() async {
+  Future<Either<String, Episode>> getEpisodeList() async {
     // TODO: implement getEpisodeList
     throw UnimplementedError();
   }

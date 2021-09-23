@@ -1,6 +1,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:proyecto_flutter/data/remote/rym_remote_source.dart';
+import 'package:proyecto_flutter/domain/domain/episode_model.dart';
 
 class RYMRemoteDataSource extends RYMRemoteSource{
   @override
@@ -16,7 +17,7 @@ class RYMRemoteDataSource extends RYMRemoteSource{
   }
 
   @override
-  Future<Either<String, String>> getEpisodeList() {
+  Future<Either<String, Episode>> getEpisodeList() {
     // TODO: implement getEpisodeList
     throw UnimplementedError();
   }
