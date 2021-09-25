@@ -22,10 +22,7 @@ class RYMRemoteDataSource extends RYMRemoteSource {
       final result = await http.get(url);
       if (result.statusCode == 200) {
         final response = jsonDecode(result.body)["results"];
-        List<CharacterModel> list = [];
-        (response as List).forEach((e) => {
-          list.add(CharacterModel.fromJson(e))
-        });
+        List<CharacterModel> list = characterModelListFrom(response);
         return Right(list);
       } else {
         return Left("");

@@ -2,6 +2,17 @@ import 'dart:convert';
 
 CharacterModel characterModelFromJson(String str) => CharacterModel.fromJson(json.decode(str));
 
+CharacterModel characterModelFromJsonDynamic(dynamic str) => CharacterModel.fromJson(str);
+
+List<CharacterModel> characterModelListFrom(dynamic response){
+  List<CharacterModel> list = [];
+  (response as List).forEach((e) => {
+  list.add(characterModelFromJsonDynamic(e))
+  });
+  return list;
+}
+
+
 String characterModelToJson(CharacterModel data) => json.encode(data.toJson());
 
 class CharacterModel {
