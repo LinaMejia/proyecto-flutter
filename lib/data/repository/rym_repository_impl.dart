@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:proyecto_flutter/data/remote/rym_remote_source.dart';
+import 'package:proyecto_flutter/domain/domain/character_model.dart';
 import 'package:proyecto_flutter/domain/domain/episode_model.dart';
 import 'package:proyecto_flutter/domain/rym_repository.dart';
 
@@ -15,15 +16,13 @@ class RYMRepositoryImpl extends RYMRepository{
   }
 
   @override
-  Future<Either<String, String>> getCharacterList() async {
-    // TODO: implement getCharacterList
-    throw UnimplementedError();
+  Future<Either<String, List<CharacterModel>>> getCharacterList() async {
+    return _rymRemoteSource.getCharacterList();
   }
 
   @override
   Future<Either<String, Episode>> getEpisodeList() async {
-    // TODO: implement getEpisodeList
-    throw UnimplementedError();
+    return _rymRemoteSource.getEpisodeList();
   }
 
 }
