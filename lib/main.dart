@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => GetIt.I<HomeProvider>()..getEpisodes(),
+      create: (context) => GetIt.I<HomeProvider>()..loadData(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter project',

@@ -19,9 +19,20 @@ class HomeProvider extends ChangeNotifier {
     return _currentPage;
   }
 
+  void loadData(){
+    getCharacters();
+    getEpisodes();
+  }
+
   void getEpisodes() async {
     final data = await _rymRepository.getEpisodeList();
     data.fold((l) => {}, (r) => _episodes = r.results);
+    notifyListeners();
+  }
+
+  void getCharacters() async {
+    final data = await _rymRepository.getCharacterList();
+    print(data);
     notifyListeners();
   }
 }
