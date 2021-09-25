@@ -8,7 +8,7 @@ class EpisodeListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(
-        builder: (, snapshot, _) {
+        builder: (_, snapshot, __) {
           if (snapshot.episodes == null) {
             return Center(child: CircularProgressIndicator());
           }else{

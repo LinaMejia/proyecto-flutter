@@ -23,7 +23,7 @@ class RYMRepositoryImpl extends RYMRepository{
   @override
   Future<Either<String, Episode>> getEpisodeList() async {
     // TODO: implement getEpisodeList
-    throw UnimplementedError();
+    return _rymRemoteSource.getEpisodeList();
   }
 
 }
