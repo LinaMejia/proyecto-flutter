@@ -20,7 +20,8 @@ class RYMDao {
     Directory directory = await getApplicationDocumentsDirectory();
     String databasePath = directory.path + DATABASE_NAME;
 
-    var db = await openDatabase(databasePath, version: 1, onCreate: _onCreate);
+    var db = await openDatabase(databasePath,
+        version: 1, onOpen: (db) {}, onCreate: _onCreate);
     return db;
   }
 
@@ -28,20 +29,37 @@ class RYMDao {
     await db.execute(CREATE_RYM_EPISODES_TABLE);
   }
 
+  //Insert single episode
   insertEpisode(Result episode) async {
     final db = await database;
     final res = await db.insert('rym_episodes', episode.toJson());
     return res;
   }
 
-  //Get Episode By Id
+  //Insert List of episodes
+  insertEpisodesList(List<Result> episodes) {
+    (episodes as List).forEach((ep) async {
+      var res = await insertEpisode(ep);
+      print(res);
+    });
+  }
 
-  // Future<Result> async{
-  //   final db= await database;
-  // }
+  // get episode by Id
+  Future<Result?> getEpisodeById(int id) async {
+    final db = await database;
+    final res =
+        await db.query('rym_episodes', where: 'id = ?', whereArgs: [id]);
+    return res.isNotEmpty ? Result.fromJson(res.first) : null;
+  }
 
-  //   Insert episode List
-  // Get Episode List
+  // Get Episodes List
+  Future<List<Result>> getEpisodesList() async {
+    final db = await database;
+    final res = await db.query('rym_episodes');
+    List<Result> list =
+        res.isNotEmpty ? res.map((s) => Result.fromJson(s)).toList() : [];
+    return list;
+  }
 
   Future close() async {
     var dbClient = await database;
