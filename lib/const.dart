@@ -25,8 +25,3 @@ const String CREATE_RYM_EPISODES_TABLE = '''
 
     )
 ''';
-
-
-Insert episode List
-
-Get Episode List
