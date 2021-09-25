@@ -20,7 +20,8 @@ class RYMDao {
     Directory directory = await getApplicationDocumentsDirectory();
     String databasePath = directory.path + DATABASE_NAME;
 
-    var db = await openDatabase(databasePath, version: 1, onCreate: _onCreate);
+    var db = await openDatabase(databasePath,
+        version: 1, onOpen: (db) {}, onCreate: _onCreate);
     return db;
   }
 
@@ -34,11 +35,12 @@ class RYMDao {
     return res;
   }
 
-  //Get Episode By Id
-
-  // Future<Result> async{
-  //   final db= await database;
-  // }
+  Future<Result?> getEpisodeById(int id) async {
+    final db = await database;
+    final res =
+        await db.query('rym_episodes', where: 'id = ?', whereArgs: [id]);
+    return res.isNotEmpty ? Result.fromJson(res.first) : null;
+  }
 
   //   Insert episode List
   // Get Episode List
