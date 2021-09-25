@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_flutter/domain/domain/episode_model.dart';
 import 'package:proyecto_flutter/domain/rym_repository.dart';
-import 'package:proyecto_flutter/domain/model/episode_model.dart';
 
 class HomeProvider extends ChangeNotifier {
   final RYMRepository _rymRepository;
