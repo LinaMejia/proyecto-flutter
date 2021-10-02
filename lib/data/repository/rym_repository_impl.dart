@@ -6,16 +6,12 @@ import 'package:proyecto_flutter/domain/domain/episode_model.dart';
 import 'package:proyecto_flutter/domain/rym_repository.dart';
 import 'package:proyecto_flutter/utils/connectivity_checker.dart';
 
-class RYMRepositoryImpl extends RYMRepository{
-
+class RYMRepositoryImpl extends RYMRepository {
   final RYMRemoteSource _rymRemoteSource;
   final RYMLocalSource _rymLocalSource;
   final ConnectivityChecker _connectivityChecker;
   RYMRepositoryImpl(
-      this._rymRemoteSource,
-      this._rymLocalSource,
-      this._connectivityChecker
-      );
+      this._rymRemoteSource, this._rymLocalSource, this._connectivityChecker);
 
   @override
   Future<Either<String, String>> getCharacterDetail() async {
@@ -26,33 +22,28 @@ class RYMRepositoryImpl extends RYMRepository{
   @override
   Future<Either<String, List<CharacterModel>>> getCharacterList() async {
     var isInternetAvailable = await _connectivityChecker.isInternetAvailable();
-    if(isInternetAvailable){
+    if (isInternetAvailable) {
       final data = await _rymRemoteSource.getCharacterList();
-      data.fold(
-              (l) => {},
-              (r) => {}
-      );
+      data.fold((l) => {}, (r) => {});
       return _rymRemoteSource.getCharacterList();
-    }else{
+    } else {
       return _rymRemoteSource.getCharacterList();
     }
-
   }
 
   @override
   Future<Either<String, List<Result>>> getEpisodeList() async {
     var isInternetAvailable = await _connectivityChecker.isInternetAvailable();
-    if(isInternetAvailable){
+    if (isInternetAvailable) {
       final data = await _rymRemoteSource.getEpisodeList();
-      if (data.isLeft()){
+      if (data.isLeft()) {
         return _rymLocalSource.getEpisodeList();
-      }else{
-        _rymLocalSource.insertEpisodeList( (data as Episode).results );
+      } else {
+        _rymLocalSource.insertEpisodeList((data as Episode).results);
         return _rymLocalSource.getEpisodeList();
       }
-    }else{
+    } else {
       return _rymLocalSource.getEpisodeList();
     }
   }
-
 }

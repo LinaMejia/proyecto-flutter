@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:proyecto_flutter/const.dart';
+import 'package:proyecto_flutter/domain/domain/character_model.dart';
 import 'package:proyecto_flutter/domain/domain/episode_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -27,12 +28,20 @@ class RYMDao {
 
   void _onCreate(Database db, int newVersion) async {
     await db.execute(CREATE_RYM_EPISODES_TABLE);
+    await db.execute(CREATE_RYM_CHAR_TABLE);
   }
 
   //Insert single episode
   insertEpisode(Result episode) async {
     final db = await database;
     final res = await db.insert('rym_episodes', episode.toJson());
+    return res;
+  }
+
+  //Insert single character
+  insertCharacter(CharacterModel character) async {
+    final db = await database;
+    final res = await db.insert('rym_characters', character.toJson());
     return res;
   }
 
@@ -44,8 +53,23 @@ class RYMDao {
     });
   }
 
+  //Insert List of characters
+  insertCharacterList(List<CharacterModel> characters) {
+    (characters as List).forEach((char) async {
+      var res = await insertCharacter(char);
+    });
+  }
+
   // get episode by Id
   Future<Result?> getEpisodeById(int id) async {
+    final db = await database;
+    final res =
+        await db.query('rym_episodes', where: 'id = ?', whereArgs: [id]);
+    return res.isNotEmpty ? Result.fromJson(res.first) : null;
+  }
+
+// get character by Id
+  Future<Result?> getCharacterById(int id) async {
     final db = await database;
     final res =
         await db.query('rym_episodes', where: 'id = ?', whereArgs: [id]);

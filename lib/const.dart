@@ -1,6 +1,6 @@
 const String DATABASE_NAME = 'rym_space.db';
 
-const String CREATE_RYM_TABLE = '''
+const String CREATE_RYM_CHAR_TABLE = '''
     create table rym_characters (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT,
