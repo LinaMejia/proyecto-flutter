@@ -39,8 +39,9 @@ class RYMRepositoryImpl extends RYMRepository {
       if (data.isLeft()) {
         return _rymLocalSource.getEpisodeList();
       } else {
-        _rymLocalSource.insertEpisodeList((data as Episode).results);
-        return _rymLocalSource.getEpisodeList();
+        var resultData = data.getOrElse(null);
+        _rymLocalSource.insertEpisodeList(resultData.results);
+        return Right(resultData.results);
       }
     } else {
       return _rymLocalSource.getEpisodeList();

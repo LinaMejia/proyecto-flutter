@@ -34,8 +34,17 @@ class RYMDao {
   //Insert single episode
   insertEpisode(Result episode) async {
     final db = await database;
-    final res = await db.insert('rym_episodes', episode.toJson());
-    return res;
+    try {
+      final updateId = await db.update('rym_episodes', episode.toJson(), where: 'id = ?', whereArgs: [episode.id]);
+      if (updateId == 0) {
+        final res = await db.insert('rym_episodes', episode.toJson());
+        return res;
+      }
+      return updateId;
+    }catch(e){
+      return 0;
+    }
+
   }
 
   //Insert single character

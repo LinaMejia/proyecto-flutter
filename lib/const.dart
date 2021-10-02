@@ -21,7 +21,7 @@ const String CREATE_RYM_EPISODES_TABLE = '''
       episode TEXT,
       characters TEXT,
       URL TEXT,
-      created TEXT    
+      created TEXT
 
     )
 ''';

@@ -35,8 +35,8 @@ class RYMLocalDataSource extends RYMLocalSource{
   }
 
   @override
-  void insertEpisodeList(List<Result> episodeList) {
-    dao.insertEpisodesList(episodeList);
+  void insertEpisodeList(List<Result> episodeList) async {
+    await dao.insertEpisodesList(episodeList);
   }
 
 }
