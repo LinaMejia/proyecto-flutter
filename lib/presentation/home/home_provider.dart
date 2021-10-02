@@ -30,7 +30,7 @@ class HomeProvider extends ChangeNotifier {
 
   void getEpisodes() async {
     final data = await _rymRepository.getEpisodeList();
-    data.fold((l) => {}, (r) => _episodes = r.results);
+    data.fold((l) => {}, (r) => _episodes = r);
     notifyListeners();
   }
 

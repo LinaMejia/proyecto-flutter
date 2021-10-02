@@ -37,7 +37,7 @@ class RYMDao {
   }
 
   //Insert List of episodes
-  insertEpisodesList(List<Result> episodes) {
+  insertEpisodesList(List<Result> episodes) async {
     (episodes as List).forEach((ep) async {
       var res = await insertEpisode(ep);
       print(res);

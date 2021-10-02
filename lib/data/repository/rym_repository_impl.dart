@@ -40,17 +40,18 @@ class RYMRepositoryImpl extends RYMRepository{
   }
 
   @override
-  Future<Either<String, Episode>> getEpisodeList() async {
+  Future<Either<String, List<Result>>> getEpisodeList() async {
     var isInternetAvailable = await _connectivityChecker.isInternetAvailable();
     if(isInternetAvailable){
       final data = await _rymRemoteSource.getEpisodeList();
-      data.fold(
-              (l) => {},
-              (r) => {}
-      );
-      return _rymRemoteSource.getEpisodeList();
+      if (data.isLeft()){
+        return _rymLocalSource.getEpisodeList();
+      }else{
+        _rymLocalSource.insertEpisodeList( (data as Episode).results );
+        return _rymLocalSource.getEpisodeList();
+      }
     }else{
-      return _rymRemoteSource.getEpisodeList();
+      return _rymLocalSource.getEpisodeList();
     }
   }
 

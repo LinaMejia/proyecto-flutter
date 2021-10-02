@@ -5,6 +5,7 @@ import 'package:proyecto_flutter/domain/domain/episode_model.dart';
 
 abstract class RYMLocalSource{
   Future<Either<String, List<CharacterModel>>> getCharacterList();
-  Future<Either<String, Episode>> getEpisodeList();
+  Future<Either<String, List<Result>>> getEpisodeList();
   Future<Either<String, String>> getCharacterDetail();
+  void insertEpisodeList(List<Result> episodeList);
 }
