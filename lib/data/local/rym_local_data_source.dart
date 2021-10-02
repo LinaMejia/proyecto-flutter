@@ -39,13 +39,15 @@ class RYMLocalDataSource extends RYMLocalSource{
   }
 
   @override
-  void insertEpisodeList(List<Result> episodeList) async {
+  Future<Either<String, List<Result>>> insertEpisodeList(List<Result> episodeList) async {
     await dao.insertEpisodesList(episodeList);
+    return Right(episodeList);
   }
 
   @override
-  void insertCharacterList(List<CharacterModel> characterList) async {
+  Future<Either<String, List<CharacterModel>>> insertCharacterList(List<CharacterModel> characterList) async {
     await dao.insertCharacterList(characterList);
+    return Right(characterList);
   }
 
 }

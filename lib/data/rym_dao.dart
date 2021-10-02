@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:path_provider/path_provider.dart';
 import 'package:proyecto_flutter/const.dart';
 import 'package:proyecto_flutter/domain/domain/character_model.dart';
@@ -55,7 +54,7 @@ class RYMDao {
   }
 
   //Insert List of episodes
-  insertEpisodesList(List<Result> episodes) async {
+  Future insertEpisodesList(List<Result> episodes) async {
     (episodes as List).forEach((ep) async {
       var res = await insertEpisode(ep);
       print(res);
@@ -63,7 +62,7 @@ class RYMDao {
   }
 
   //Insert List of characters
-  insertCharacterList(List<CharacterModel> characters) {
+  Future insertCharacterList(List<CharacterModel> characters) async {
     (characters as List).forEach((char) async {
       var res = await insertCharacter(char);
     });
