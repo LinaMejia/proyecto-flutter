@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_flutter/domain/domain/character_model.dart';
 
+import 'character_detail.dart';
+
 class Characteritem extends StatelessWidget {
   final CharacterModel character;
 
@@ -8,6 +10,8 @@ class Characteritem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int i;
+    Function(String value) onChanged;
     return BorderCard(
       onTap: () {},
       borderRadius: const BorderRadius.all(Radius.circular(16.0)),
@@ -148,7 +152,10 @@ class BorderCard extends StatelessWidget {
         borderRadius: borderRadius,
         child: InkWell(
           borderRadius: borderRadius,
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CharacterDetail()));
+          },
           child: child,
         ),
       ),
