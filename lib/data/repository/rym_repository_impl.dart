@@ -24,10 +24,15 @@ class RYMRepositoryImpl extends RYMRepository {
     var isInternetAvailable = await _connectivityChecker.isInternetAvailable();
     if (isInternetAvailable) {
       final data = await _rymRemoteSource.getCharacterList();
-      data.fold((l) => {}, (r) => {});
-      return _rymRemoteSource.getCharacterList();
+      if (data.isLeft()) {
+        return _rymLocalSource.getCharacterList();
+      } else {
+        var resultData = data.getOrElse(null);
+        await _rymLocalSource.insertCharacterList(resultData);
+        return Right(resultData);
+      }
     } else {
-      return _rymRemoteSource.getCharacterList();
+      return _rymLocalSource.getCharacterList();
     }
   }
 
@@ -40,7 +45,7 @@ class RYMRepositoryImpl extends RYMRepository {
         return _rymLocalSource.getEpisodeList();
       } else {
         var resultData = data.getOrElse(null);
-        _rymLocalSource.insertEpisodeList(resultData.results);
+        await _rymLocalSource.insertEpisodeList(resultData.results);
         return Right(resultData.results);
       }
     } else {

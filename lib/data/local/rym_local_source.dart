@@ -7,5 +7,6 @@ abstract class RYMLocalSource{
   Future<Either<String, List<CharacterModel>>> getCharacterList();
   Future<Either<String, List<Result>>> getEpisodeList();
   Future<Either<String, String>> getCharacterDetail();
-  void insertEpisodeList(List<Result> episodeList);
+  Future<Either<String, List<Result>>> insertEpisodeList(List<Result> episodeList);
+  Future<Either<String, List<CharacterModel>>> insertCharacterList(List<CharacterModel> characterList);
 }
