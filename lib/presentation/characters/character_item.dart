@@ -13,7 +13,9 @@ class Characteritem extends StatelessWidget {
     int i;
     Function(String value) onChanged;
     return BorderCard(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, 'detail', arguments: character);
+      },
       borderRadius: const BorderRadius.all(Radius.circular(16.0)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,9 +154,8 @@ class BorderCard extends StatelessWidget {
         borderRadius: borderRadius,
         child: InkWell(
           borderRadius: borderRadius,
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CharacterDetail()));
+          onTap: (){
+            onTap();
           },
           child: child,
         ),

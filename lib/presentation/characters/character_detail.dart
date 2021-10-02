@@ -6,37 +6,36 @@ import 'package:proyecto_flutter/domain/domain/character_model.dart';
 class CharacterDetail extends StatelessWidget {
   // final CharacterModel character;
   // CharacterDetail({required this.character});
+
   const CharacterDetail({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print(ModalRoute.of(context)!.settings.arguments);
+    final CharacterModel character = ModalRoute.of(context)!.settings.arguments as CharacterModel;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Character name"),
+        title: Text(character.name),
       ),
-      body: _body(),
+      body: _body(character),
     );
   }
 
-  _body() {
+  _body(CharacterModel character) {
     String character_image = '';
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text("name: Rick Sanchez"),
+          child: Text("name: ${character.name}"),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text("Status: Alive"),
+          child: Text("Status: ${character.status}"),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text("Species: Human"),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text("name: Rick Sanchez"),
+          child: Text("Species: ${character.species}"),
         ),
       ],
     );

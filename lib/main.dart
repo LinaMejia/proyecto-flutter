@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:proyecto_flutter/presentation/characters/character_detail.dart';
 import 'di/injector.dart';
 import 'presentation/home/home_page.dart';
 import 'presentation/home/home_provider.dart';
@@ -22,7 +23,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: HomePage(),
+        initialRoute: 'home',
+        routes: {
+          'home': (BuildContext context) => HomePage(),
+          'detail': (BuildContext context) => CharacterDetail(),
+        },
       ),
     );
   }
