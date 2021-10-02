@@ -22,12 +22,18 @@ class RYMRepositoryImpl extends RYMRepository {
   @override
   Future<Either<String, List<CharacterModel>>> getCharacterList() async {
     var isInternetAvailable = await _connectivityChecker.isInternetAvailable();
+    print(isInternetAvailable);
     if (isInternetAvailable) {
       final data = await _rymRemoteSource.getCharacterList();
-      data.fold((l) => {}, (r) => {});
-      return _rymRemoteSource.getCharacterList();
+      if (data.isLeft()) {
+        return _rymLocalSource.getCharacterList();
+      } else {
+        var resultData = data.getOrElse(null);
+        _rymLocalSource.insertCharacterList(resultData);
+        return Right(resultData);
+      }
     } else {
-      return _rymRemoteSource.getCharacterList();
+      return _rymLocalSource.getCharacterList();
     }
   }
 

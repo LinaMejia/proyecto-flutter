@@ -19,9 +19,13 @@ class RYMLocalDataSource extends RYMLocalSource{
   }
 
   @override
-  Future<Either<String, List<CharacterModel>>> getCharacterList() {
-    // TODO: implement getCharacterList
-    throw UnimplementedError();
+  Future<Either<String, List<CharacterModel>>> getCharacterList() async {
+    try{
+      var list = await dao.getChracterList();
+      return Right(list);
+    }catch(e){
+      return Left("");
+    }
   }
 
   @override
@@ -37,6 +41,11 @@ class RYMLocalDataSource extends RYMLocalSource{
   @override
   void insertEpisodeList(List<Result> episodeList) async {
     await dao.insertEpisodesList(episodeList);
+  }
+
+  @override
+  void insertCharacterList(List<CharacterModel> characterList) async {
+    await dao.insertCharacterList(characterList);
   }
 
 }

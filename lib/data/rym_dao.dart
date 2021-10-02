@@ -94,6 +94,15 @@ class RYMDao {
     return list;
   }
 
+  // Get Character List
+  Future<List<CharacterModel>> getChracterList() async {
+    final db = await database;
+    final res = await db.query('rym_characters');
+    List<CharacterModel> list =
+    res.isNotEmpty ? res.map((s) => CharacterModel.fromJson(s)).toList() : [];
+    return list;
+  }
+
   Future close() async {
     var dbClient = await database;
     return dbClient.close();
